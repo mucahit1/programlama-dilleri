@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        
+        body {
+          background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        }
+#myImg {
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 0;
+  height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {  
+  -webkit-animation-name: zoom;
+  -webkit-animation-duration: 0.6s;
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+  from {-webkit-transform:scale(0)} 
+  to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+ a {
+  cursor:pointer
+}
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+    </style>
+</head>
+<body  >
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" onclick="changeYear(2019)">2019 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link"  onclick="changeYear(2020)">2020 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" onclick="changeYear(2021)">2021 <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" onclick="changeYear(123)">Hepsi <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container mt-5 text-center">
+      <div class="mx-auto">
+        <div class="my-5">
+            <select id="soru_sec" class="col-6 mx-auto form-control">
+                <option value="1">Soru 1</option>
+                <option value="2">Soru 2</option>
+                <option value="3">Soru 3</option>
+                <option value="4">Soru 4</option>
+                <option value="5">Soru 5</option>
+                <option value="6">Soru 6</option>
+                <option value="2">Soru 7</option>
+                <option value="5">Soru 8</option>
+                <option value="1">Soru 9</option>
+                <option value="3">Soru 10</option>
+            </select>
+        </div>
+
+       
+
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+          </div>
+
+         <div class="genel" style="background-color:rgb(217, 211, 219)">
+            <div class="my-2 mx-auto">
+                <h2 id="soru_title">Soru 1</h2>
+                <img id="myImg" height="200" width="200" src="./water.JPG" alt="">
+                <br>
+                <small>Buyutmek icin resme tiklayin</small>
+            </div>
+    
+            <form id="form" class="col-6 mx-auto">
+                <div class="form-group">
+                  <input type="number" class="form-control" id="birinci_input"  placeholder="Birinci Parcalama Degerını Giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="ikinci_input"  placeholder="İkinci Parcalama Degerını Giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="cizgi_input"  placeholder="Sıvı Seviyesindeki Çizgi Değerini Giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="sise_input"  placeholder="Şişenin litre cinsinden boyunu giriniz,Örn 5:">
+                </div>
+                
+                <span class="btn btn-primary" onclick="hesapla(event)">Calistir</span>
+              </form>
+              <h2 class="text-muted">Cevap: </h2>
+              <textarea class="form-control" id="cevap" cols="6" readonly rows="6"></textarea>
+         </div>
+         </div>
+  </div>
+
+<script>
+
+function changeYear(year){
+  let newOptions
+if (year =='2019'){
+  newOptions = {
+        "Soru 5": "5",
+        "Soru 6": "6",
+      };
+}else if (year =='2020'){
+  newOptions = {
+        "Soru 1": "1",
+        "Soru 2": "2",
+        "Soru 3": "3",
+      };
+}
+else if (year =='2021'){
+  newOptions = {
+        "Soru 1": "1",
+        "Soru 2": "4",
+        "Soru 3": "5",
+      };
+}else{
+  newOptions = {
+        "Soru 1": "1",
+        "Soru 2": "2",
+        "Soru 3": "3",
+        "Soru 4": "4",
+        "Soru 5": "5",
+        "Soru 6": "6",
+        "Soru 7": "2",
+        "Soru 8": "5",
+        "Soru 9": "3",
+        "Soru 10": "1",
+      };
+}
+ 
+
+var $el = $("#soru_sec");
+$el.empty(); // remove old options
+$.each(newOptions, function(key,value) {
+  $el.append($("<option></option>")
+     .attr("value", value).text(key));
+});
+}
+
+    function hesapla(e){
+          e.preventDefault();
+          let soru = $('#soru_sec').val()
+          if (soru =='1'){
+              let sayi1 =Number($('#birinci_input').val())
+              let sayi2 =Number($('#ikinci_input').val())
+              let litre =Number($('#sise_input').val())
+              let cizgi = Number($('#cizgi_input').val())
+              let carpım = sayi1 * sayi2
+              let toplam=(litre*1000)/carpım
+              litre = litre*1000
+              let cevap1=(carpım-cizgi)*(toplam)
+              let net=(cevap1)/1000
+
+              net += "\nİçilen sıvı miktarı:" + (cevap1) +  " mililitre \n Litre oranı:" +
+               (net) +  "\n Litre Kalan sıvı:" +(litre-cevap1) + " mililitre"
+              $('#cevap').text(`Toplam ${net}`)
+          }
+          if (soru =='2'){
+              let urun1_input = Number($("#urun1_input").val())
+              let adet1_input = Number($("#adet1_input").val())
+              let urun2_input = Number($("#urun2_input").val())
+              let adet2_input = Number($("#adet2_input").val())
+              let urun3_input = Number($("#urun3_input").val())
+              let adet3_input = Number($("#adet3_input").val())
+              let araToplam = urun1_input * adet1_input + urun2_input * adet2_input + urun3_input * adet3_input;
+              let odenen = Number($('#odenen_input').val())
+              let sonuc = odenen - araToplam 
+              $('#cevap').text(`Para Ustu: ${sonuc} TL`)
+        }
+        if (soru =='3'){
+                let indirim_input = Number($("#indirim_input").val())
+                let oran_input = Number($("#oran_input").val())
+                let toplam=((indirim_input)*100)/(oran_input)
+                let odenen=toplam- indirim_input
+                $('#cevap').text(`Urun fiyatin ${toplam} TL \n Odenmesi gereken ${odenen}`)
+          }
+        if (soru =='4'){
+                let eval = Number($("#eval_input").val())
+                let evsat = Number($("#evsat_input").val())
+                let arsaal = Number($("#arsaal_input").val())
+                let arsasat = Number($("#arsasat_input").val())
+                let odenen = Number($("#odenen_input").val())
+                let araIslem = odenen / eval
+                let x = evsat*araIslem
+                let toplam = x/arsaal
+                let y = toplam * arsasat
+                let kar = y-x
+                $('#cevap').text(`Bu Satıstan Kariniz ${kar} TL`)
+            }
+          
+          if (soru =='6'){
+                let b = Number($("#katsayı1_input").val())
+                let c = Number($("#katsayı2_input").val())
+                let d = Number($("#katsayı3_input").val())
+                let girdi_input = Number($("#girdi_input").val())
+                let a = b * c * d
+                let cevap1 = a/girdi_input
+                if (cevap1 == c){
+                  b=(a)/(b)         
+                  d=(a)/(d)
+                  $('#cevap').text(`${(a)+(b)+(girdi_input)}`)
+                }else if(cevap1 ==b){
+                  c=(a)/(c)         
+                  d=(a)/(d)
+                  $('#cevap').text(`${(c)+(d)+(girdi_input)}`)
+                }else if(cevap1 == d){
+                  c=(a)/(c)         
+                  b=(a)/(b)
+                  $('#cevap').text( `${(c)+(b)+(girdi_input)}`)
+                }else{
+                  $('#cevap').text(`Degerlerınızı kontrol edınız`)
+                }
+          }
+          if (soru =='5'){
+                let bos = Number($("#bos_input").val())
+                let dolu= Number($("#dolu_input").val())
+                let yarım = Number($("#yarım_input").val())
+              let su=(dolu)-(bos)
+              let net=(yarım)-(bos)
+              let oran=(net)/(su)
+              $('#cevap').text(`Bardagın doluluk oranı: ${oran}`)
+          }
+          if (soru =='7'){
+                let abb = $("#abb").val()*1
+                let abbb = $("#abbb").val()*1
+                let toplam = parseInt(abb,10) * parseInt(abbb,10)
+                $('#cevap').text(`Toplam ${toplam}`)
+          }
+    }
+
+
+
+    function getFormPureHtml(soruId){
+        if (soruId == '1'){
+            return ` 
+            <div class="form-group">
+                      <input type="number" class="form-control" id="birinci_input"  placeholder="Birinci Parcalama Degerını Giriniz:">
+                    </div>
+            
+                    <div class="form-group">
+                      <input type="number" class="form-control" id="ikinci_input"  placeholder="İkinci Parcalama Degerını Giriniz:">
+                    </div>
+            
+                    <div class="form-group">
+                      <input type="number" class="form-control" id="cizgi_input"  placeholder="Sıvı Seviyesindeki Çizgi Değerini Giriniz:">
+                    </div>
+            
+                    <div class="form-group">
+                      <input type="number" class="form-control" id="sise_input"  placeholder="Şişenin litre cinsinden boyunu giriniz,Örn 5:">
+                    </div>
+                
+        
+                
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>
+        
+        `
+        }else if(soruId =='2'){
+            return  `
+                <div class="form-group">
+                  <input tUype="number" class="form-control" id="urun1_input"  placeholder="Urun1 fıyat bilgisini giriniz(TL):">
+                </div>
+        
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="adet1_input"  placeholder="Urun1  adet bilgisini giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="urun2_input"  placeholder="Urun2 fıyat bilgisini giriniz(TL):">
+                </div>
+
+                <div class="form-group">
+                  <input type="number" class="form-control" id="adet2_input"  placeholder="Urun2  adet bilgisini giriniz:">
+                </div>
+                
+                <div class="form-group">
+                  <input type="number" class="form-control" id="urun3_input"  placeholder="Urun3 fıyat bilgisini giriniz(TL):">
+                </div>
+                
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="adet3_input"  placeholder="Urun3  adet bilgisini giriniz:">
+                </div>
+
+                <div class="form-group">
+                  <input type="number" class="form-control" id="odenen_input"  placeholder="Odenen  miktar  bilgisini giriniz:">
+                </div>
+              
+
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>
+        
+        `
+        }else if (soruId == '3'){
+            return ` 
+                <div class="form-group">
+                  <input tUype="number" class="form-control" id="indirim_input"  placeholder="Indırım Tutarını gırınız (TL):">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="oran_input"  placeholder="Indırım Oranınızı  gırınız (%):">
+                </div>
+                
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>
+        
+        `
+      }else if (soruId == '4'){
+            return `
+                <div class="form-group">
+                  <input tUype="number" class="form-control" id="eval_input"  placeholder="Ev Alıs Degerını Gırınız :">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="evsat_input"  placeholder="Ev Satıs Degerını  Gırınız :">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="arsaal_input"  placeholder="Arsa Alıs Tutarını Gırınız :">
+                </div>
+
+                <div class="form-group">
+                  <input type="number" class="form-control" id="arsasat_input"  placeholder="Arsa Satıs  Tutarını Gırınız :">
+                </div>
+
+                <div class="form-group">
+                  <input type="number" class="form-control" id="odenen_input"  placeholder="Odenilen   Tutarını Gırınız :">
+                </div>
+
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>       
+                `
+              }else if (soruId == '5'){
+            return `
+                <div class="form-group">
+                  <input tUype="number" class="form-control" id="bos_input"  placeholder="Bos Agırlık Degerını Gırınız :">
+                </div>
+        
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="dolu_input"  placeholder="Dolu Agırlık Degerını  Gırınız :">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="yarım_input"  placeholder="Bır Mıktar Doluyken Agırlıgını Gırınız :">
+                </div>
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>       
+
+              `         
+              }else if (soruId == '6'){
+
+            return `
+            <div class="form-group">
+                  <input tUype="number" class="form-control" id="katsayı1_input"  placeholder="Bırıncı Degerın Katsayısını Giriniz:">
+                </div>
+        
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="katsayı2_input" placeholder="İkinci Degerın Katsayısını Giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="katsayı3_input"  placeholder="Ucuncu Degerın Katsayısını Giriniz:">
+                </div>
+
+                <div class="form-group">
+                  <input type="number" class="form-control" id="girdi_input"  placeholder="Girdi Degerıni  Giriniz:">
+                </div>
+
+                <button class="btn btn-primary" onclick="hesapla(event)">Calistir</button>      
+            ` 
+          }else if (soruId == '7'){
+            return `    
+            <div class="form-group">
+                  <input tUype="number" class="form-control" id="sayi_input"  placeholder="Kişi sayısını Giriniz:">
+                </div>
+        
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="fazla_input" placeholder="Fazla tutarı giriniz:">
+                </div>
+        
+                <div class="form-group">
+                  <input type="number" class="form-control" id="odenmeyen_input"  placeholder="Odenmeyen toplam payı giriniz:"">
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" id="odenenecek_input"  placeholder="Ödeme yapacak kısı sayısı">
+                </div>
+
+
+
+            ` 
+      }
+    }
+    $('#soru_sec').on('change',function(){
+        let soruArray = 
+        [
+            {
+                soru_title:"Soru Title1",
+                image :"./water.JPG",
+            },
+            {
+                soru_title:"Soru Title2",
+                image :"./marcet.JPG",
+            },
+            {
+                soru_title:"Soru Title3",
+                image :"./indirim.JPG",
+            },
+            { soru_title:"Soru Title4",
+                image :"./arsa.JPG",
+              },
+              { soru_title:"Soru Title5",
+                image :"./agirlik.JPG",  
+              },
+              { soru_title:"Soru Title6",
+                image :"./katsayi.JPG",   
+              },
+              { soru_title:"Soru Title7",
+                image :"./arkadas.JPG",   
+
+          }       
+        ]
+        let secilenSoru = $('#soru_sec').val() *1 -1;
+        let newForm = getFormPureHtml($('#soru_sec').val())
+        $('#form').html(newForm)
+        $('#soru_title').text(soruArray[secilenSoru].soru_title)
+        $('#myImg').attr('src',soruArray[secilenSoru].image)
+    })
+        
+    var modal = document.getElementById("myModal");
+
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() { 
+      modal.style.display = "none";
+    }
+</script>
+</body>
+</html>
